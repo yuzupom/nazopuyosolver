@@ -1,6 +1,6 @@
-// 2手で1秒
-// 3手で57秒
-// 4手で4571秒
+// 2手で0.5秒
+// 3手で20秒
+// 4手で2936秒
 var gol_str = gol[0].split(",")
 var tsumo_num = gol_str.length
 var gogen = []
@@ -41,16 +41,10 @@ function bruteforce_search(){
 			test_go[i] = gogen[i] + TSUMO_PATTERN[current_puyofu[i]]
 		}
 		go = test_go
-		make_field(tsumo_num - 1)
-		new_field_str = gf.toString()
-		do {
-			past_field_str = new_field_str
-			faqmn()
-			new_field_str = gf.toString()
-		}while(gok == true && past_field_str != new_field_str);
+		faqm(tsumo_num)
 		chkstr = lbI.innerHTML.toUpperCase()
 		if( chkstr.indexOf('<B><FONT COLOR="#FF0000">') != -1){
-			//break;
+			break;
 		}
 
 		current_puyofu = next_puyofu(current_puyofu)
