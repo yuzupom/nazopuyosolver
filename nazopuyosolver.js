@@ -1,6 +1,11 @@
 // 2手で0.5秒
 // 3手で20秒
 // 4手で2936秒
+// 
+// 1 :       30 ms
+// 2 :      600 ms
+// 3 :   16 000 ms
+// 4 : 2590 000 ms
 var gol_str = gol[0].split(",")
 var tsumo_num = gol_str.length
 var gogen = []
@@ -50,7 +55,8 @@ function bruteforce_search(){
 		current_puyofu = next_puyofu(current_puyofu)
 	}
 	alert(Date.now() - time)
-	alert(go)
+	fcol(go)
+	//alert(go)
 }
 
 function next_puyofu(puyofu){
