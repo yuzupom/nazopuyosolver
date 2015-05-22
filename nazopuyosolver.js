@@ -109,13 +109,41 @@ function is_achievable(){
 				}
 			}
 			return (cnt >= n);
+
+		//cぷよn箇所同時に消す
+		// -> cぷよ4n個同時に消すに読み替える
+		case 44: case 45:
+			n = n * 4
+		//cぷよn個同時に消す
+		case 42: case 43:
+		//cぷよn連結で消す
+		// -> cぷよn個同時に消すに読み替える
+		case 52: case 54:
+			//色ぷよ
+			if (c == 7){
+				for(i = 1;i <= 5;i++){
+					t = total_str.split(i + '').length - 1;
+					if(t > 4){
+						cnt += t;
+					}
+				}
+				return cnt >= n;
+			//r,g,b,y,pぷよ
+			}else if(c > 0 && c < 6){
+				t = total_str.split(c + '').length - 1;
+				return (t >= n && erasable(c,n));
+			}
 	}
 }
 
-function erasable(c){
+function erasable(c,_n){
+	var n = _n || 4
 	var left = gogen.slice(goi).join().split(c+'').length - 1
 	var column_arr = [0,0,0,0,0,0]
 	var i = 0
+	if(left >= n){
+		return true;
+	}
 	//それぞれの列に何個指定の色ぷよがあるか
 	while(true){
 		i = gf.indexOf(c,i + 1)
@@ -147,7 +175,7 @@ function erasable(c){
 		//[4,0,1]
 		// ->[6]
 		if(left > 0){
-			if(connection[0] < 4){
+			if(connection[0] < n){
 				connection[1]++
 			}else{
 				for(i = 1; i < connection.length; i++){
@@ -165,7 +193,7 @@ function erasable(c){
 			old = connection
 		}else{
 			for(i = 0;i < connection.length;i++){
-				if(connection[i] < 4 && connection[i] > 0){
+				if(connection[i] < n && connection[i] > 0){
 					return false
 				}
 			}
