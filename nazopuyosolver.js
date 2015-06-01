@@ -58,7 +58,6 @@ function recursive_search(n){
 			faqm(n)
 		}
 		
-		//faqm(n)
 		if(is_achievable()){
 			if(recursive_search(n + 1)){
 				return true;
