@@ -2,6 +2,8 @@
 // 3手で20秒
 // 4手で122秒?
 // 5手で----秒
+var org_fci = fci
+fci = function(){};
 var gol_str = gol[0].split(",")
 var tsumo_num = gol_str.length
 var gogen = []
@@ -14,6 +16,7 @@ var test_go = new Array(tsumo_num)
 var time = Date.now()
 recursive_search(0);
 alert(Date.now() - time)
+fci = org_fci;
 
 function recursive_search(n){	
 	for (var i = 0;i < TSUMO_PATTERN.length;i++){
@@ -57,7 +60,7 @@ function recursive_search(n){
 		}else{
 			faqm(n)
 		}
-		
+
 		if(is_achievable()){
 			if(recursive_search(n + 1)){
 				return true;
