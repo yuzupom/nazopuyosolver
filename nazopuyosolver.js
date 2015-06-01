@@ -15,10 +15,7 @@ var time = Date.now()
 recursive_search(0);
 alert(Date.now() - time)
 
-
-
-
-function recursive_search(n){
+function recursive_search(n){	
 	for (var i = 0;i < TSUMO_PATTERN.length;i++){
 		if(n == tsumo_num){
 			faqm(n)
@@ -30,8 +27,38 @@ function recursive_search(n){
 				return false;
 			}
 		}
+
+		//ゾロの場合置き方が重複するパターンがある
+		if(gogen[n][0] == gogen[n][1]){
+			if(TSUMO_PATTERN[i][1] == '2' || TSUMO_PATTERN[i][1] == '3'){
+				continue;
+			}
+		}
+
+		//同ツモの場合等価な置き方を探索しない
+		if(gogen[n] == gogen[n-1] && n != tsumo_num - 1){
+			var str = go[n-1].slice(2)
+			if(TSUMO_PATTERN.indexOf(str) < i){
+				if(gogen[n][0] == gogen[n][1]){
+					continue;
+				}
+				if(Math.abs(Number(str[0]) - Number(TSUMO_PATTERN[i][0])) > 1){
+					continue;
+				}
+			}	
+		}
+
 		go[n] = gogen[n] + TSUMO_PATTERN[i]
-		faqm(n)
+		
+		if(goi < n){
+			while(goi != n){
+				faqmn()
+			}
+		}else{
+			faqm(n)
+		}
+		
+		//faqm(n)
 		if(is_achievable()){
 			if(recursive_search(n + 1)){
 				return true;
